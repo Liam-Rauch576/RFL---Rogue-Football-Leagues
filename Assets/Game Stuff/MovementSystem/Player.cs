@@ -5,15 +5,18 @@ using System;
 public class Player : MonoBehaviour
 {
     protected Rigidbody rb;
+    public Transform Hands;
     private Vector2 moveInput;
     private bool running = false;
+
     public string name;
     public float speed;
     public float strength;
     public float agility;
 
-    public bool hasPossession { get; private set; } = false;
-    private void Awake()
+    public bool hasPossession = false;
+
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
@@ -27,17 +30,6 @@ public class Player : MonoBehaviour
             running = false;
         }
     }
-
-    
-    public void OnJump(InputAction.CallbackContext cntxt)
-    {
-        if (!hasPossession) return;
-        if (cntxt.performed)
-        {
-            rb.AddForce(new Vector3(0, 100, 0));
-        }
-    }
-
 
     public void OnJuke(InputAction.CallbackContext cntxt)
     {
@@ -84,7 +76,7 @@ public class Player : MonoBehaviour
     {
         if (running)
         {
-            rb.linearVelocity = new Vector3(moveInput.x * (speed / 10) * (7/4), rb.linearVelocity.y, moveInput.y * (speed / 10) * (3/2));
+            rb.linearVelocity = new Vector3(moveInput.x * (speed / 10) * (7f/4f), rb.linearVelocity.y, moveInput.y * (speed / 10) * (3f/2f));
         }
         else
         {

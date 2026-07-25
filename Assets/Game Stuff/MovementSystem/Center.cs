@@ -17,9 +17,7 @@ public class Center : Player
         if (!hasPossession) return;
         if (cntxt.performed)
         {
-            FootballLogic.instance.SnapMovement();
-            PossessionManager.instance.GivePossession(PossessionManager.instance.offense[1]);
-            
+            FootballLogic.instance.StateChange("Snapping");
         }
     }
 

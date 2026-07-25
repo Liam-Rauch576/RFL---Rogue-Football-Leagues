@@ -16,15 +16,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
-                    "type": "Button",
-                    "id": "709dd34f-5848-4d4c-8830-f0773422898b",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Sprint",
                     "type": "Button",
                     "id": "9a1f4a8a-2e1b-4802-9aa3-21c1166b222d",
@@ -52,17 +43,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8855e16a-9bda-4436-8e48-5759d07708b3",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "Hold(duration=0.08)",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -113,6 +93,94 @@
                     "processors": "",
                     "groups": "",
                     "action": "Snap Ball",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "QuarterBack",
+            "id": "da19bd21-58e7-4026-9185-52d196ce338f",
+            "actions": [
+                {
+                    "name": "ThrowToReceiver1",
+                    "type": "Button",
+                    "id": "8e389871-e0a4-4263-84fd-c3fbf9872f65",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ThrowToReceiver2",
+                    "type": "Button",
+                    "id": "b081ebcc-f57f-4be9-a5f1-f4c44f7f336d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ThrowToReceiver3",
+                    "type": "Button",
+                    "id": "ccfc122d-c2cd-4afa-805c-5b613e5acac6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ThrowToReceiver4",
+                    "type": "Button",
+                    "id": "4ee4f990-de6c-48fc-a48f-759f448fd017",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "56606053-3e9a-47b6-8e8c-06edcf465749",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThrowToReceiver1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5200b9a1-1d5b-4662-a0ef-5c243005002b",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThrowToReceiver2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "27fdacce-5900-4616-a120-d7bd56c82b5a",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThrowToReceiver3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2dbd0a6c-da6c-457b-976f-864134cbe8a0",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThrowToReceiver4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
