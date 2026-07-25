@@ -29,7 +29,7 @@ public class FootballLogic : MonoBehaviour
     //data used to figure out throwing positions
     public Transform receiverPosition;
     private float ThrowTime = 0f;
-    private float throwDuration = 2f;
+    private float throwDuration = 1.5f;
 
     //data used to handoff the ball
     private float handoffTime = 0f;
