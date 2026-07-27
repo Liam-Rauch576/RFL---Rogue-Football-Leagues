@@ -67,4 +67,21 @@ public class Quarterback : Player
             FootballLogic.instance.StateChange("Thrown");
         }
     }
+
+    public void ThrowToReceiver4(InputAction.CallbackContext cntxt)
+    {
+        if (!hasPossession)
+        {
+            return;
+        }
+
+        if (cntxt.performed)
+        {
+            Player receiver = PossessionManager.instance.offense[2];
+            Transform fieldPosition = receiver.transform;
+            FootballLogic.instance.receiverPosition = fieldPosition;
+            FootballLogic.instance.currentBallCarrier = receiver;
+            FootballLogic.instance.StateChange("Thrown");
+        }
+    }
 }

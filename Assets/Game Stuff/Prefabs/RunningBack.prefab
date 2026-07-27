@@ -288,7 +288,7 @@ MonoBehaviour:
   name: 
   speed: 100
   strength: 0
-  agility: 0
+  agility: 15
   hasPossession: 0
   catching: 0
   blocking: 0

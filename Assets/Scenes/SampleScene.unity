@@ -1480,9 +1480,9 @@ MonoBehaviour:
   QuarterBackSpawnPoint: {fileID: 32031665}
   RunningBackSpawnPoint: {fileID: 32031664}
   WideReceiverSpawnPoints:
-  - {fileID: 32031663}
   - {fileID: 32031662}
   - {fileID: 32031666}
+  - {fileID: 32031663}
 --- !u!1 &1942102186
 GameObject:
   m_ObjectHideFlags: 0
