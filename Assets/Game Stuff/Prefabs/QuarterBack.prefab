@@ -320,7 +320,19 @@ MonoBehaviour:
     m_ActionId: ccfc122d-c2cd-4afa-805c-5b613e5acac6
     m_ActionName: 'QuarterBack/ThrowToReceiver3[/DualSenseGamepadHID/buttonEast]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3215896629534056165}
+        m_TargetAssemblyTypeName: Quarterback, Assembly-CSharp
+        m_MethodName: ThrowToReceiver4
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 4ee4f990-de6c-48fc-a48f-759f448fd017
     m_ActionName: 'QuarterBack/ThrowToReceiver4[/DualSenseGamepadHID/buttonSouth]'
   m_NeverAutoSwitchControlSchemes: 0

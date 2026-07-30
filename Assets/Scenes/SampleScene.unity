@@ -800,6 +800,57 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &566834092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 566834094}
+  - component: {fileID: 566834093}
+  m_Layer: 0
+  m_Name: IndicatorManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &566834093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566834092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3dfce57899cec4f855b7f2e7ef0c91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IndicatorManager
+  indicatorPrefab: {fileID: 0}
+  targetCanvas: {fileID: 8265441886147701628, guid: af4e8385568922c459f2f7f3e784793f, type: 3}
+  heightOffset: 2.2
+  buttonSprite1: {fileID: 21300000, guid: 2c3d9eac3a0d4b8428ec152a44c335b6, type: 3}
+  buttonSprite2: {fileID: 21300000, guid: 23fe8a62a19836749a8d895aa5358bb5, type: 3}
+  buttonSprite3: {fileID: 21300000, guid: 22a7fea4d96a45c45bfa6b04db2cea0e, type: 3}
+  buttonSprite4: {fileID: 21300000, guid: 49c17d1da38b88c48bcbe182a73f4a12, type: 3}
+--- !u!4 &566834094
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566834092}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.49395, y: -19.12933, z: 44.8606}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &635204016
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,9 +1531,9 @@ MonoBehaviour:
   QuarterBackSpawnPoint: {fileID: 32031665}
   RunningBackSpawnPoint: {fileID: 32031664}
   WideReceiverSpawnPoints:
+  - {fileID: 32031663}
   - {fileID: 32031662}
   - {fileID: 32031666}
-  - {fileID: 32031663}
 --- !u!1 &1942102186
 GameObject:
   m_ObjectHideFlags: 0
@@ -1847,3 +1898,4 @@ SceneRoots:
   - {fileID: 1503784240}
   - {fileID: 534142072}
   - {fileID: 32031661}
+  - {fileID: 566834094}
