@@ -64,6 +64,10 @@ public class FootballLogic : MonoBehaviour
         else if (indicator == "QuarterBack")
         {
             state = BallState.QuarterBack;
+            if(PlayManager.instance.CurrentPlay == PlayType.Pass)
+            {
+                IndicatorManager.instance.SetIndicatorsVisible(true);
+            }
         } 
         else if (indicator == "Handoff")
         {
@@ -73,6 +77,7 @@ public class FootballLogic : MonoBehaviour
         {
             ThrowTime = 0f;
             state = BallState.Thrown;
+            IndicatorManager.instance.SetIndicatorsVisible(false);
         }
         else
         {
@@ -103,7 +108,7 @@ public class FootballLogic : MonoBehaviour
                 transform.position = Vector3.Lerp(startPosition.position, qbPosition.position, t);
                 if(t >= 1f)
                 {
-                    state = BallState.QuarterBack;
+                    StateChange("QuarterBack");
                     PossessionManager.instance.GivePossession(PossessionManager.instance.offense[1]);
                     if (PlayManager.instance.CurrentPlay == PlayType.Rush){
                         currentBallCarrier = PossessionManager.instance.offense[2];

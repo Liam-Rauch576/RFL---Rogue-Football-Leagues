@@ -61,6 +61,8 @@ public class PlayManager : MonoBehaviour
             spawnedPlayers.Clear();
             CurrentPlay = PlayType.None;
         }
+
+        IndicatorManager.instance.ClearIndicators();
     }
 
     public void StartPassPlay()
@@ -86,6 +88,8 @@ public class PlayManager : MonoBehaviour
 
         FootballLogic.instance.startPosition = Center.Hands;
         FootballLogic.instance.qbPosition = QuarterBack.Hands;
+
+        IndicatorManager.instance.SetupIndicators(PossessionManager.instance.offense);
 
         PossessionManager.instance.GivePossession(Center);
         FootballLogic.instance.StateChange("Center");

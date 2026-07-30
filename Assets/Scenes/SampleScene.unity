@@ -829,12 +829,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3dfce57899cec4f855b7f2e7ef0c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IndicatorManager
-  indicatorPrefab: {fileID: 0}
-  targetCanvas: {fileID: 8265441886147701628, guid: af4e8385568922c459f2f7f3e784793f, type: 3}
+  indicatorPrefab: {fileID: 3868306363840356868, guid: 4916a6ce9acd7754c83299f79b746db9, type: 3}
+  targetCanvas: {fileID: 1255622797}
   heightOffset: 2.2
   buttonSprite1: {fileID: 21300000, guid: 2c3d9eac3a0d4b8428ec152a44c335b6, type: 3}
-  buttonSprite2: {fileID: 21300000, guid: 23fe8a62a19836749a8d895aa5358bb5, type: 3}
-  buttonSprite3: {fileID: 21300000, guid: 22a7fea4d96a45c45bfa6b04db2cea0e, type: 3}
+  buttonSprite2: {fileID: 21300000, guid: 22a7fea4d96a45c45bfa6b04db2cea0e, type: 3}
+  buttonSprite3: {fileID: 21300000, guid: 23fe8a62a19836749a8d895aa5358bb5, type: 3}
   buttonSprite4: {fileID: 21300000, guid: 49c17d1da38b88c48bcbe182a73f4a12, type: 3}
 --- !u!4 &566834094
 Transform:
@@ -1131,6 +1131,108 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayMenuUI
   playManager: {fileID: 1764721604}
   menuPanel: {fileID: 1042205693}
+--- !u!1 &1255622794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1255622798}
+  - component: {fileID: 1255622797}
+  - component: {fileID: 1255622796}
+  - component: {fileID: 1255622795}
+  m_Layer: 5
+  m_Name: CanvasBS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1255622795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255622794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &1255622796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255622794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!223 &1255622797
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255622794}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!224 &1255622798
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255622794}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &1429304157
 GameObject:
   m_ObjectHideFlags: 0
@@ -1899,3 +2001,4 @@ SceneRoots:
   - {fileID: 534142072}
   - {fileID: 32031661}
   - {fileID: 566834094}
+  - {fileID: 1255622798}

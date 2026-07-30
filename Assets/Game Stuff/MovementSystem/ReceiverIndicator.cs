@@ -12,11 +12,15 @@ public class ReceiverIndicator : MonoBehaviour
     [SerializeField] private TextMeshProUGUI label;
     [SerializeField] private RectTransform rect;
 
+    //Scaling stuff
+    [SerializeField] private float baseScale = 1f;
+    [SerializeField] private float referenceDistance = 10f;
+
     public void Initialize(Player targetPlayer, string buttonLabel, Sprite buttonSprite, float offset)
     {
         target = targetPlayer;
         heightOffset = offset;
-        label.text = buttonLabel; // optional now, since the sprite itself shows the button
+        label.text = buttonLabel; 
         glyphImage.sprite = buttonSprite;
         cam = Camera.main;
     }
@@ -40,5 +44,9 @@ public class ReceiverIndicator : MonoBehaviour
 
         rect.gameObject.SetActive(true);
         rect.position = screenPos;
+
+        float distance = Vector3.Distance(cam.transform.position, worldPos);
+        float scale = baseScale * (referenceDistance / distance);
+        rect.localScale = Vector3.one * scale * .75f;
     }
 }

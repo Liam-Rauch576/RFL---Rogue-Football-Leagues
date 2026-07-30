@@ -51,8 +51,11 @@ public class IndicatorManager : MonoBehaviour
             var indicator = indicatorObj.GetComponent<ReceiverIndicator>();
             indicator.Initialize(receiver, label, sprite, heightOffset);
 
+            indicatorObj.SetActive(false);
+
             Indicators[receiver] = indicatorObj;
         }
+
     }
 
     public void ClearIndicators()
