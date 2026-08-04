@@ -56,6 +56,7 @@ public class FootballLogic : MonoBehaviour
         {
             snapTime = 0f;
             state = BallState.Snapping;
+            PlayManager.instance.TriggerRoutes();
         } 
         else if (indicator == "Center")
         {

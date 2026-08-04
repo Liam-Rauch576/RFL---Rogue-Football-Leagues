@@ -19,6 +19,16 @@ public class PlayManager : MonoBehaviour
     [SerializeField] private Transform RunningBackSpawnPoint;
     [SerializeField] private Transform[] WideReceiverSpawnPoints;
 
+    [System.Serializable]
+    public struct RouteAssignment
+    {
+        public int offenseIndex; // index into PossessionManager.instance.offense
+        public RouteType route;
+    }
+
+    [Header("Route Assignments")]
+    [SerializeField] private RouteAssignment[] passPlayRoutes;
+
     private void Awake()
     {
         instance = this;
@@ -100,6 +110,8 @@ public class PlayManager : MonoBehaviour
         ClearSpawnedPlayers();
         CurrentPlay = PlayType.Rush;
 
+        PossessionManager.instance.offense.Clear();
+
         Player Center = SpawnAt(centerPrefab, centerSpawnPoint, "Center");
         Player QuarterBack = SpawnAt(QuarterBackPrefab, QuarterBackSpawnPoint, "QuarterBack");
         Player RunningBack = SpawnAt(RunningBackPrefab, RunningBackSpawnPoint, "Running Back");
@@ -107,8 +119,6 @@ public class PlayManager : MonoBehaviour
         PossessionManager.instance.offense.Add(Center);
         PossessionManager.instance.offense.Add(QuarterBack);
         PossessionManager.instance.offense.Add(RunningBack);
-
-
 
         for (int i = 0; i < WideReceiverSpawnPoints.Length; i++)
         {
@@ -122,6 +132,26 @@ public class PlayManager : MonoBehaviour
         PossessionManager.instance.GivePossession(Center);
         FootballLogic.instance.StateChange("Center");
 
+    }
+
+    public void TriggerRoutes()
+    {
+        if (CurrentPlay != PlayType.Pass) return;
+
+        foreach (var assignment in passPlayRoutes)
+        {
+            if (assignment.offenseIndex < 0 || assignment.offenseIndex >= PossessionManager.instance.offense.Count)
+            {
+                Debug.LogWarning($"PlayManager: RouteAssignment index {assignment.offenseIndex} is out of range for offense list.");
+                continue;
+            }
+
+            Player player = PossessionManager.instance.offense[assignment.offenseIndex];
+            if (player != null)
+            {
+                player.RunAssignedRoute(assignment.route);
+            }
+        }
     }
 
 
