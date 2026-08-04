@@ -84,6 +84,7 @@ public class PlayManager : MonoBehaviour
         {
             Player wideReceiver = SpawnAt(WideReceiverPrefab, WideReceiverSpawnPoints[i], "Wide Receiver_" + (i + 1));
             PossessionManager.instance.offense.Add(wideReceiver);
+            ((WideReceiver)wideReceiver).isRightOfCenter = WideReceiverSpawnPoints[i].position.x > centerSpawnPoint.position.x;
         }
 
         FootballLogic.instance.startPosition = Center.Hands;
@@ -107,8 +108,6 @@ public class PlayManager : MonoBehaviour
         PossessionManager.instance.offense.Add(Center);
         PossessionManager.instance.offense.Add(QuarterBack);
         PossessionManager.instance.offense.Add(RunningBack);
-
-
 
         for (int i = 0; i < WideReceiverSpawnPoints.Length; i++)
         {

@@ -105,6 +105,8 @@ public class FootballLogic : MonoBehaviour
             case BallState.Snapping:
                 snapTime += Time.deltaTime;
                 float t = Mathf.Clamp01(snapTime / snapDuration);
+                WideReceiver WR1 = (WideReceiver)PossessionManager.instance.offense[3];
+                WR1.StartRoute(new Vector2[] { new Vector2(0, 2), new Vector2(10, 4.5f) }, WR1.transform.position, Vector3.right, Vector3.forward);
                 transform.position = Vector3.Lerp(startPosition.position, qbPosition.position, t);
                 if(t >= 1f)
                 {
