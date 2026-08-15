@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public enum BallState
 {
     Idle,
@@ -27,9 +26,13 @@ public class FootballLogic : MonoBehaviour
     private float snapDuration = .4f;
 
     //data used to figure out throwing positions
-    public Transform receiverPosition;
+    public Vector3 Target;
     private float ThrowTime = 0f;
-    private float throwDuration = 1.5f;
+    private float throwDuration;
+    private float catchRadius = 1.5f;
+    private Transform qbHands => PossessionManager.instance.offense[1].Hands;
+    [SerializeField] private float arcHeightStuff = 0.15f;
+    private float ThrowArcHeight = 0f;
 
     //data used to handoff the ball
     private float handoffTime = 0f;
@@ -44,6 +47,31 @@ public class FootballLogic : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
         instance = this;
+    }
+
+    public void ThrowTo(Vector3 target, float duration)
+    {
+        Debug.Log($"ThrowTo called - duration in: {duration}, will clamp to: {Mathf.Max(duration, 0.15f)}");
+
+        Target = target;
+        throwDuration = Mathf.Max(duration, .015f);
+
+        float throwDistance = Vector3.Distance(qbHands.position, target);
+        ThrowArcHeight = throwDistance * arcHeightStuff;
+
+        ThrowTime = 0f;
+        StateChange("Thrown");
+    }
+
+    public void CatchingMath()
+    {
+        float distanceToTarget = Vector3.Distance(currentBallCarrier.transform.position, Target);
+
+        if(distanceToTarget <= catchRadius)
+        {
+            StateChange("BallCarrier");
+            PossessionManager.instance.GivePossession(currentBallCarrier);
+        }
     }
 
     public void StateChange(string indicator)
@@ -137,11 +165,14 @@ public class FootballLogic : MonoBehaviour
             case BallState.Thrown:
                 ThrowTime += Time.deltaTime;
                 float time = Mathf.Clamp01(ThrowTime / throwDuration);
-                transform.position = Vector3.Lerp(qbPosition.position, currentBallCarrier.Hands.transform.position, time);
+
+                Vector3 straightLinePos = Vector3.Lerp(qbHands.position, Target, (time));
+                float arc = Mathf.Sin(time * Mathf.PI) * ThrowArcHeight;
+                transform.position = straightLinePos + Vector3.up * arc;
+
                 if(time >= 1f)
                 {
-                    StateChange("BallCarrier");
-                    PossessionManager.instance.GivePossession(currentBallCarrier);
+                    CatchingMath();
                 }
                 break;
 

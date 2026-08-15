@@ -8,6 +8,8 @@ public class Quarterback : Player
     public float throwPower;
     public float accuracy;
 
+    private float ballSpeed = 25f;
+
     private PlayerInput playerInput;
 
     protected override void Awake()
@@ -19,27 +21,28 @@ public class Quarterback : Player
 
     public void ThrowToReceiver(Player player)
     {
-        if (!hasPossession || ThrowToReceiver == null) return;
+        if (!hasPossession || (player == null)) return;
 
         Vector3 qbPos = Hands.transform.position;
         Vector3 receiverPosition = player.transform.position;
-        Vector3 receiverVel = player.velocity;
+        Vector3 receiverVel = player.Velocity;
         Vector3 target;
         float flightTime;
 
-        bool foundIntercept = ThrowingStuff.TryGetInterceptPoint(qbPos, receiverPosition, receiverVel, throwPower, out target, out flightTime);
+        bool foundIntercept = ThrowingStuff.TryGetInterceptPoint(qbPos, receiverPosition, receiverVel, ballSpeed, out target, out flightTime);
+
 
         if (!foundIntercept)
         {
             target = receiverPosition;
-            flightTime = Vector3.Distance(qbPos, receiverPosition) / throwPower;
+            flightTime = (Vector3.Distance(qbPos, receiverPosition)/ballSpeed);
         }
 
         float throwDistanceYards = Vector3.Distance(qbPos, target);
-        target += ThrowingStuff.GetAccuracyOffset(accuracy, throwDistanceYards);
+        //target += ThrowingStuff.GetAccuracyOffset(accuracy, throwDistanceYards);
 
-        FootballLogic.instance.CurrentBallCarrier = player;
-        FootballLogic.instance.Throwto(targetpoint, flightTime);
+        FootballLogic.instance.currentBallCarrier = player;
+        FootballLogic.instance.ThrowTo(target, flightTime);
     }
 
     public void ThrowToReceiver1(InputAction.CallbackContext cntxt)
@@ -51,11 +54,7 @@ public class Quarterback : Player
 
         if (cntxt.performed)
         {
-            Player receiver = PossessionManager.instance.offense[3];
-            Transform fieldPosition = receiver.transform;
-            FootballLogic.instance.receiverPosition = fieldPosition;
-            FootballLogic.instance.currentBallCarrier = receiver;
-            FootballLogic.instance.StateChange("Thrown");
+            ThrowToReceiver(PossessionManager.instance.offense[3]);
         }
     }
 
@@ -68,11 +67,7 @@ public class Quarterback : Player
 
         if (cntxt.performed)
         {
-            Player receiver = PossessionManager.instance.offense[4];
-            Transform fieldPosition = receiver.transform;
-            FootballLogic.instance.receiverPosition = fieldPosition;
-            FootballLogic.instance.currentBallCarrier = receiver;
-            FootballLogic.instance.StateChange("Thrown");
+            ThrowToReceiver(PossessionManager.instance.offense[4]);
         }
     }
 
@@ -85,11 +80,7 @@ public class Quarterback : Player
 
         if (cntxt.performed)
         {
-            Player receiver = PossessionManager.instance.offense[5];
-            Transform fieldPosition = receiver.transform;
-            FootballLogic.instance.receiverPosition = fieldPosition;
-            FootballLogic.instance.currentBallCarrier = receiver;
-            FootballLogic.instance.StateChange("Thrown");
+            ThrowToReceiver(PossessionManager.instance.offense[5]);
         }
     }
 
@@ -102,11 +93,8 @@ public class Quarterback : Player
 
         if (cntxt.performed)
         {
-            Player receiver = PossessionManager.instance.offense[2];
-            Transform fieldPosition = receiver.transform;
-            FootballLogic.instance.receiverPosition = fieldPosition;
-            FootballLogic.instance.currentBallCarrier = receiver;
-            FootballLogic.instance.StateChange("Thrown");
+            ThrowToReceiver(PossessionManager.instance.offense[2]);
+
         }
     }
 }

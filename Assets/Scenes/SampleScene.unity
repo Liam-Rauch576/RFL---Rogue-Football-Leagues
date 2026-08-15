@@ -758,7 +758,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FootballLogic
   startPosition: {fileID: 0}
   qbPosition: {fileID: 0}
-  receiverPosition: {fileID: 0}
+  Target: {x: 0, y: 0, z: 0}
   currentBallCarrier: {fileID: 0}
 --- !u!114 &534142074
 MonoBehaviour:
@@ -1022,6 +1022,8 @@ MonoBehaviour:
   routeEntries:
   - type: 1
     route: {fileID: 11400000, guid: ea2392e40db2e87499e0496f4361ae5b, type: 2}
+  - type: 2
+    route: {fileID: 11400000, guid: e31c91ce8e77b9549ad5b2e2c9c420b9, type: 2}
 --- !u!4 &774399419
 Transform:
   m_ObjectHideFlags: 0
@@ -1686,6 +1688,8 @@ MonoBehaviour:
   passPlayRoutes:
   - offenseIndex: 3
     route: 1
+  - offenseIndex: 4
+    route: 2
 --- !u!1 &1942102186
 GameObject:
   m_ObjectHideFlags: 0

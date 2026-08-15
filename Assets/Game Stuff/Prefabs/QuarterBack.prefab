@@ -160,13 +160,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Quarterback
   Hands: {fileID: 1084372730844688186}
+  hasPossession: 0
   name: QuarterBack
   speed: 75
   strength: 75
   agility: 40
-  hasPossession: 0
+  waypointArrivalthreshold: 0.5
   throwPower: 100
-  accuracy: 75
+  accuracy: 100
 --- !u!54 &6875320473590547788
 Rigidbody:
   m_ObjectHideFlags: 0

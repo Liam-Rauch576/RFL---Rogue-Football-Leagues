@@ -36,7 +36,7 @@ public static class ThrowingStuff
             t0 = (-b + sqrDist) / (2f * a);
             t1 = (-b - sqrDist) / (2f * a);
         }
-        t = (t0 <= 0f && t1 >= 0f) ? Mathf.Min(t0, t1) : Mathf.Max(t0, t1);
+        t = (t0 >= 0f && t1 >= 0f) ? Mathf.Min(t0, t1) : Mathf.Max(t0, t1);
         if( t < 0f)
         {
             interceptPoint = receiverPos;

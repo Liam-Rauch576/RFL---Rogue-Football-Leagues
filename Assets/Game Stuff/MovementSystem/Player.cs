@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     private readonly List<Vector3> routeWaypoints = new List<Vector3>();
     private int currentWayPointIndex = 0;
     private bool isRunningRoute = false;
-    public Vector3 velocity => rb.linearVelocity;
+    public Vector3 Velocity => rb.linearVelocity;
 
     protected virtual void Awake()
     {
