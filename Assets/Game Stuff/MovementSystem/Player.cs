@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public Transform Hands;
     private Vector2 moveInput;
     private bool running = false;
+    public bool hasPossession = false;
 
     [Header("Stats")]
     public string name;
@@ -16,13 +17,12 @@ public class Player : MonoBehaviour
     public float strength;
     public float agility;
 
-    public bool hasPossession = false;
-
     [Header("Route Running")]
     public float waypointArrivalthreshold = .5f;
     private readonly List<Vector3> routeWaypoints = new List<Vector3>();
     private int currentWayPointIndex = 0;
     private bool isRunningRoute = false;
+    public Vector3 velocity => rb.linearVelocity;
 
     protected virtual void Awake()
     {
