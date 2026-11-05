@@ -185,6 +185,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "General",
+            "id": "94831c38-15ec-449e-9390-25c8b30e92af",
+            "actions": [
+                {
+                    "name": "EndPlay",
+                    "type": "Button",
+                    "id": "ea81b247-ab17-4604-af3e-83c610e6b7a9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "26895483-ce21-45ab-b92c-1de4a52d53cd",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EndPlay",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

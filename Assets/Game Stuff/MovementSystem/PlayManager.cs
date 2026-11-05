@@ -14,6 +14,7 @@ public class PlayManager : MonoBehaviour
     [SerializeField] private GameObject WideReceiverPrefab;
 
     [Header("Spawn Points")]
+    [SerializeField] private Transform formation;
     [SerializeField] private Transform centerSpawnPoint;
     [SerializeField] private Transform QuarterBackSpawnPoint;
     [SerializeField] private Transform RunningBackSpawnPoint;
@@ -68,9 +69,9 @@ public class PlayManager : MonoBehaviour
             {
                 Destroy(player);
             }
-            spawnedPlayers.Clear();
-            CurrentPlay = PlayType.None;
         }
+        spawnedPlayers.Clear();
+        CurrentPlay = PlayType.None;
 
         IndicatorManager.instance.ClearIndicators();
     }
@@ -153,5 +154,19 @@ public class PlayManager : MonoBehaviour
             }
         }
     }
+    public event System.Action PlayEnded;
 
+    public void EndPlay()
+    {
+        if (CurrentPlay == PlayType.None) return;
+
+        Vector3 formP = formation.position;
+        formation.position = new Vector3 (formP.x, formP.y, FootballLogic.instance.currentBallCarrier.transform.position.z);
+        FootballLogic.instance.ResetBall(centerSpawnPoint.position + Vector3.up);
+        ClearSpawnedPlayers();
+        PossessionManager.instance.offense.Clear();
+
+        PlayEnded?.Invoke();
+
+    }
 }

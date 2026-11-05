@@ -74,6 +74,13 @@ public class FootballLogic : MonoBehaviour
         }
     }
 
+    public void ResetBall(Vector3 position)
+    {
+        StateChange("Idle");
+        currentBallCarrier = null;
+        transform.position = position;
+    }
+
     public void StateChange(string indicator)
     {
         if(indicator == "Idle")
@@ -100,6 +107,7 @@ public class FootballLogic : MonoBehaviour
         } 
         else if (indicator == "Handoff")
         {
+            handoffTime = 0f;
             state = BallState.Handoff;
         }
         else if(indicator == "Thrown")

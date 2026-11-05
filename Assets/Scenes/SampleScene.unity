@@ -759,6 +759,7 @@ MonoBehaviour:
   startPosition: {fileID: 0}
   qbPosition: {fileID: 0}
   Target: {x: 0, y: 0, z: 0}
+  arcHeightStuff: 0.15
   currentBallCarrier: {fileID: 0}
 --- !u!114 &534142074
 MonoBehaviour:
@@ -1180,6 +1181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayMenuUI
   playManager: {fileID: 1764721604}
   menuPanel: {fileID: 1042205693}
+  defaultSelectedButton: {fileID: 1479011275}
 --- !u!1 &1255622794
 GameObject:
   m_ObjectHideFlags: 0
@@ -1388,8 +1390,8 @@ Transform:
   m_GameObject: {fileID: 1429304157}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.42, z: 0}
-  m_LocalScale: {x: 33.205704, y: 1, z: 42.906975}
+  m_LocalPosition: {x: 0, y: 0.42, z: 37.3}
+  m_LocalScale: {x: 33.205704, y: 1, z: 102.69919}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1640,6 +1642,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1764721603}
   - component: {fileID: 1764721604}
+  - component: {fileID: 1764721605}
   m_Layer: 0
   m_Name: PlayManager
   m_TagString: Untagged
@@ -1678,6 +1681,7 @@ MonoBehaviour:
   QuarterBackPrefab: {fileID: 6735508884237186915, guid: 91fb65ac5c9ec9f41838cdfb590659cf, type: 3}
   RunningBackPrefab: {fileID: 7394345335813955024, guid: 9e56a274368efab499797b07e3071e27, type: 3}
   WideReceiverPrefab: {fileID: 3860163405961477164, guid: 3222faa79add83e44b8e61b552f01816, type: 3}
+  formation: {fileID: 1820192640}
   centerSpawnPoint: {fileID: 32031667}
   QuarterBackSpawnPoint: {fileID: 32031665}
   RunningBackSpawnPoint: {fileID: 32031664}
@@ -1690,6 +1694,25 @@ MonoBehaviour:
     route: 1
   - offenseIndex: 4
     route: 2
+--- !u!114 &1764721605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764721602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dda0dba5ac4b284ca353595c623041c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GeneralInput
+  endPlayAction: {fileID: 7682455643660996810, guid: fd32d386bac90f249b93868c32c3e5f8, type: 3}
+  playManager: {fileID: 1764721604}
+--- !u!4 &1820192640 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 58294269314998044, guid: 04abc98b83c57c340a32a6baf8348da0, type: 3}
+  m_PrefabInstance: {fileID: 32031661}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1942102186
 GameObject:
   m_ObjectHideFlags: 0
