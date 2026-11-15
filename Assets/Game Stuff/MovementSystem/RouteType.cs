@@ -1,6 +1,8 @@
 public enum RouteType
 {
     None,
-    Slant,
+    SlantRight,
+    SlantLeft,
+    FlatLeft,
     Go
 }

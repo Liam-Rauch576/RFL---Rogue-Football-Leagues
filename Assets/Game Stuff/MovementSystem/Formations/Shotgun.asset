@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 019cebcf9b9158c44ac12f8a2feb3058, type: 3}
+  m_Name: Shotgun
+  m_EditorClassIdentifier: Assembly-CSharp::Formation
+  playerPositions:
+  - label: Center
+    role: 0
+    position: {x: 0, y: 0, z: 0}
+  - label: QuarterBack
+    role: 1
+    position: {x: 0, y: 0, z: -5}
+  - label: RunningBack
+    role: 2
+    position: {x: -2, y: 0, z: -6}
+  - label: X-Receiver
+    role: 3
+    position: {x: -8, y: 0, z: 0}
+  - label: Slot-Receiver
+    role: 3
+    position: {x: -6, y: 0, z: -2}
+  - label: Tight End
+    role: 4
+    position: {x: 4, y: 0, z: 0}
+  - label: Z-Receiver
+    role: 3
+    position: {x: 8, y: 0, z: -1}

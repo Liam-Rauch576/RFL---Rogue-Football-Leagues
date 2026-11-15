@@ -6,6 +6,9 @@ public class PlayManager : MonoBehaviour
     public static PlayManager instance { get; private set; }
     public PlayType CurrentPlay { get; private set; } = PlayType.None;
     private readonly List<GameObject> spawnedPlayers = new List<GameObject>();
+   
+    public Play PlayData { get; private set; }
+    private Player[] players;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject centerPrefab;
@@ -76,81 +79,70 @@ public class PlayManager : MonoBehaviour
         IndicatorManager.instance.ClearIndicators();
     }
 
-    public void StartPassPlay()
+    private GameObject PrefabFor(PlayerRole role)
     {
-        ClearSpawnedPlayers();
-        CurrentPlay = PlayType.Pass;
-
-        PossessionManager.instance.offense.Clear();
-
-        Player Center = SpawnAt(centerPrefab, centerSpawnPoint, "Center");
-        Player QuarterBack = SpawnAt(QuarterBackPrefab, QuarterBackSpawnPoint, "QuarterBack");
-        Player RunningBack = SpawnAt(RunningBackPrefab, RunningBackSpawnPoint, "RunningBack");
-
-        PossessionManager.instance.offense.Add(Center);
-        PossessionManager.instance.offense.Add(QuarterBack);
-        PossessionManager.instance.offense.Add(RunningBack);
-
-        for( int i = 0; i < WideReceiverSpawnPoints.Length; i++)
+        switch (role)
         {
-            Player wideReceiver = SpawnAt(WideReceiverPrefab, WideReceiverSpawnPoints[i], "Wide Receiver_" + (i + 1));
-            PossessionManager.instance.offense.Add(wideReceiver);
+            case PlayerRole.Center: 
+                return centerPrefab;
+            case PlayerRole.QuarterBack:
+                return QuarterBackPrefab;
+            case PlayerRole.RunningBack:
+                return RunningBackPrefab;
+            case PlayerRole.WideReceiver:
+                return WideReceiverPrefab;
+            default:
+                Debug.LogError($"PlayManager: No prefab defined for role {role}");
+                return null;
         }
-
-        FootballLogic.instance.startPosition = Center.Hands;
-        FootballLogic.instance.qbPosition = QuarterBack.Hands;
-
-        IndicatorManager.instance.SetupIndicators(PossessionManager.instance.offense);
-
-        PossessionManager.instance.GivePossession(Center);
-        FootballLogic.instance.StateChange("Center");
     }
 
-    public void StartRunPlay()
+    private Player FirstOfRole(PlayerRole role, Formation.PlayerPosition[] slots)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].Role == role)
+            {
+                return players[i];
+            }
+            Debug.LogError($"PlayManager: No player found for role {role}");
+            return null;
+        }
+    }
+
+    public void StartPlay (Play play)
     {
         ClearSpawnedPlayers();
-        CurrentPlay = PlayType.Rush;
 
+        CurrentPlay = play.playType;
+        PlayData = play;
         PossessionManager.instance.offense.Clear();
 
-        Player Center = SpawnAt(centerPrefab, centerSpawnPoint, "Center");
-        Player QuarterBack = SpawnAt(QuarterBackPrefab, QuarterBackSpawnPoint, "QuarterBack");
-        Player RunningBack = SpawnAt(RunningBackPrefab, RunningBackSpawnPoint, "Running Back");
-
-        PossessionManager.instance.offense.Add(Center);
-        PossessionManager.instance.offense.Add(QuarterBack);
-        PossessionManager.instance.offense.Add(RunningBack);
-
-        for (int i = 0; i < WideReceiverSpawnPoints.Length; i++)
+        var positions = play.formation.playerPositions;
+        players = new Player[positions.Length];
+        for (int i = 0; i < positions.Length; i++)
         {
-            Player wideReceiver = SpawnAt(WideReceiverPrefab, WideReceiverSpawnPoints[i], "Wide Receiver_" + (i + 1));
-            PossessionManager.instance.offense.Add(wideReceiver);
+            players[i] = SpawnAt(PrefabFor(positions[i].role), formation.position + positions[i].offset, formation.rotation, positions[i].label);
+
         }
+        var offense = PossessionManager.instance.offense;
+        offense.Add(FirstOfRole(PlayerRole.Center));
+        offense.Add(FirstOfRole(PlayerRole.QuarterBack));
+        offense.Add(FirstOfRole(PlayerRole.RunningBack));
 
-        FootballLogic.instance.startPosition = Center.Hands;
-        FootballLogic.instance.qbPosition = QuarterBack.Hands;
-
-        PossessionManager.instance.GivePossession(Center);
-        FootballLogic.instance.StateChange("Center");
-
+        if (play.PlayType == PlayType.Pass)
+        {
+            IndicatorManager.instance.SetupIndicators(offense);
+        }
     }
 
     public void TriggerRoutes()
     {
-        if (CurrentPlay != PlayType.Pass) return;
-
-        foreach (var assignment in passPlayRoutes)
+        for (int i = 0; i < players.Length; i++)
         {
-            if (assignment.offenseIndex < 0 || assignment.offenseIndex >= PossessionManager.instance.offense.Count)
+            if (CurrentPlay.routes[i] != RouteType.None)
             {
-                Debug.LogWarning($"PlayManager: RouteAssignment index {assignment.offenseIndex} is out of range for offense list.");
-                continue;
-            }
-
-            Player player = PossessionManager.instance.offense[assignment.offenseIndex];
-            if (player != null)
-            {
-                player.RunAssignedRoute(assignment.route);
+                players[i].RunAssignedRoute(PlayData.routes[i]);
             }
         }
     }
@@ -161,7 +153,7 @@ public class PlayManager : MonoBehaviour
         if (CurrentPlay == PlayType.None) return;
 
         Vector3 formP = formation.position;
-        formation.position = new Vector3 (formP.x, formP.y, FootballLogic.instance.currentBallCarrier.transform.position.z);
+        formation.position = new Vector3 (formP.x, formP.y, FootballLogic.instance.currentBallCarrier.transform.position.z + 1.89f);
         FootballLogic.instance.ResetBall(centerSpawnPoint.position + Vector3.up);
         ClearSpawnedPlayers();
         PossessionManager.instance.offense.Clear();

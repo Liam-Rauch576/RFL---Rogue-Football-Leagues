@@ -7,6 +7,10 @@ public class PlayMenuUI : MonoBehaviour
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject defaultSelectedButton;
 
+    [SerializeField] private Play passPlay;
+    [SerializeField] private Play runPlay;
+
+
     private void Start()
     {
         playManager.PlayEnded += ShowMenu;
@@ -36,12 +40,12 @@ public class PlayMenuUI : MonoBehaviour
     public void OnPassButtonPressed()
     {
         HideMenu();
-        playManager.StartPassPlay();
+        playManager.StartPlay(passPlay);
     }
 
     public void OnRunButtonPressed()
     {
         HideMenu();
-        playManager.StartRunPlay();
+        playManager.StartPlay(runPlay);
     }
 }
