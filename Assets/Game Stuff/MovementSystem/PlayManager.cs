@@ -18,10 +18,6 @@ public class PlayManager : MonoBehaviour
 
     [Header("Spawn Points")]
     [SerializeField] private Transform formation;
-    [SerializeField] private Transform centerSpawnPoint;
-    [SerializeField] private Transform QuarterBackSpawnPoint;
-    [SerializeField] private Transform RunningBackSpawnPoint;
-    [SerializeField] private Transform[] WideReceiverSpawnPoints;
 
     [System.Serializable]
     public struct RouteAssignment
@@ -38,20 +34,15 @@ public class PlayManager : MonoBehaviour
         instance = this;
     }
 
-    private Player SpawnAt(GameObject prefab, Transform spawnPoint, string label)
+    private Player SpawnAt(GameObject prefab, Vector3 position, Quaternion rotation, string label)
     {
-        if(prefab == null)
+        if (prefab == null)
         {
-            Debug.LogError($"PlayManager: Missing prefab reference for {label}.");
-            return null;
-        }
-        if(spawnPoint == null)
-        {
-            Debug.LogError($"PlayManager: Missing spawn point for {label}.");
+            Debug.LogError($"PlayManager: No prefab provided for {label}");
             return null;
         }
 
-        GameObject instance = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
+        GameObject instance = Instantiate(prefab, position, rotation);
         instance.name = label;
         spawnedPlayers.Add(instance);
 
@@ -91,6 +82,8 @@ public class PlayManager : MonoBehaviour
                 return RunningBackPrefab;
             case PlayerRole.WideReceiver:
                 return WideReceiverPrefab;
+            case PlayerRole.TightEnd:
+                return WideReceiverPrefab;
             default:
                 Debug.LogError($"PlayManager: No prefab defined for role {role}");
                 return null;
@@ -101,46 +94,73 @@ public class PlayManager : MonoBehaviour
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            if (slots[i].Role == role)
+            if (slots[i].role == role)
             {
                 return players[i];
             }
-            Debug.LogError($"PlayManager: No player found for role {role}");
-            return null;
         }
+        Debug.LogError($"PlayManager: No player found for role {role}");
+        return null;
     }
 
     public void StartPlay (Play play)
     {
         ClearSpawnedPlayers();
-
         CurrentPlay = play.playType;
         PlayData = play;
-        PossessionManager.instance.offense.Clear();
+
+        var offense = PossessionManager.instance.offense;
+        offense.Clear();
 
         var positions = play.formation.playerPositions;
         players = new Player[positions.Length];
         for (int i = 0; i < positions.Length; i++)
         {
             players[i] = SpawnAt(PrefabFor(positions[i].role), formation.position + positions[i].offset, formation.rotation, positions[i].label);
-
         }
-        var offense = PossessionManager.instance.offense;
-        offense.Add(FirstOfRole(PlayerRole.Center));
-        offense.Add(FirstOfRole(PlayerRole.QuarterBack));
-        offense.Add(FirstOfRole(PlayerRole.RunningBack));
 
-        if (play.PlayType == PlayType.Pass)
+        Player center = FirstOfRole(PlayerRole.Center, positions);
+        Player qb = FirstOfRole(PlayerRole.QuarterBack, positions);
+        Player rb = FirstOfRole(PlayerRole.RunningBack, positions);
+        offense.Add(center);
+        offense.Add(qb);
+        offense.Add(rb);
+
+        var receivers = new List<(float x, Player p)>();
+        for(int i = 0; i < positions.Length; i++)
+        {
+            if (positions[i].role == PlayerRole.WideReceiver)
+            {
+                receivers.Add((positions[i].offset.x, players[i]));
+            }
+        }
+        receivers.Sort((a, b) => a.x.CompareTo(b.x));
+        foreach (var r in receivers) offense.Add(r.p);
+
+        for (int i = 0; i < positions.Length; i++)
+        {
+            if (positions[i].role == PlayerRole.TightEnd)
+            {
+                offense.Add(players[i]);
+            }
+        }
+
+        FootballLogic.instance.startPosition = center.Hands;
+        FootballLogic.instance.qbPosition = qb.Hands;
+
+        if (play.playType == PlayType.Pass)
         {
             IndicatorManager.instance.SetupIndicators(offense);
         }
+        PossessionManager.instance.GivePossession(center);
+        FootballLogic.instance.StateChange("Center");
     }
 
     public void TriggerRoutes()
     {
         for (int i = 0; i < players.Length; i++)
         {
-            if (CurrentPlay.routes[i] != RouteType.None)
+            if (PlayData.routes[i] != RouteType.None)
             {
                 players[i].RunAssignedRoute(PlayData.routes[i]);
             }
@@ -153,8 +173,8 @@ public class PlayManager : MonoBehaviour
         if (CurrentPlay == PlayType.None) return;
 
         Vector3 formP = formation.position;
-        formation.position = new Vector3 (formP.x, formP.y, FootballLogic.instance.currentBallCarrier.transform.position.z + 1.89f);
-        FootballLogic.instance.ResetBall(centerSpawnPoint.position + Vector3.up);
+        formation.position = new Vector3 (formP.x, formP.y, FootballLogic.instance.currentBallCarrier.transform.position.z);
+        FootballLogic.instance.ResetBall(formation.position + Vector3.up);
         ClearSpawnedPlayers();
         PossessionManager.instance.offense.Clear();
 
